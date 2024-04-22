@@ -18,7 +18,7 @@ function Exp() {
         <l1 className='exp-items'>
           <img src='school.webp' alt='college' />
           <p>10th & 12th</p>
-          <p>old - March 2018</p>
+          <p>old - Present</p>
         </l1>
       </ul>
     </div>
