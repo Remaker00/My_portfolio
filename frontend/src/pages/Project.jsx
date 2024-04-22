@@ -11,7 +11,7 @@ function Project() {
           <h4>My Portfolio</h4>
           <div className='anchor'>
             <a href="#Live"><LanguageIcon />Live Project</a>
-            <a href="#visit_repo"><GitHubIcon />Repo</a>
+            <a href="https://github.com/Remaker00/My_portfolio"><GitHubIcon />Repo</a>
           </div>
           <div className='lang'>Languages: <span>javaScript:51.5%</span><span>CSS:45.3%</span><span>HTML:3%</span></div>
           <div className='stars'><GitHubIcon />Stars<span>updated on January 17,2024</span></div>

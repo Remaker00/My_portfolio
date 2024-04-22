@@ -44,7 +44,6 @@ function Intro() {
             >
                 <button>More about me</button>
             </Link>
-
         </div>
     )
 }
