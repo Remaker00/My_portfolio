@@ -1,14 +1,5 @@
-"use client";
-
 import { siteConfig } from "@/constants/site";
 import { socialLinks } from "@/constants/social";
-import { Github, Linkedin, Mail } from "lucide-react";
-
-const iconMap = {
-  github: Github,
-  linkedin: Linkedin,
-  mail: Mail,
-} as const;
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -22,21 +13,18 @@ export function Footer() {
           · {year}
         </p>
         <div className="flex items-center gap-4">
-          {socialLinks.map((link) => {
-            const Icon = iconMap[link.icon];
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted transition-colors hover:text-foreground"
-                aria-label={link.label}
-              >
-                <Icon size={18} />
-              </a>
-            );
-          })}
+          {socialLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-muted transition-colors hover:text-foreground"
+              aria-label={link.label}
+            >
+              {link.label}
+            </a>
+          ))}
         </div>
       </div>
     </footer>

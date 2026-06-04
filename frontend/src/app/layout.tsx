@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
+import { ClientProviders } from "@/components/providers/ClientProviders";
 import { siteConfig } from "@/constants/site";
 import "./globals.css";
 
@@ -10,12 +10,18 @@ const inter = Inter({
   subsets: ["latin"],
   variable: "--font-geist-sans",
   display: "swap",
+  weight: ["400", "500", "600"],
+  preload: true,
+  adjustFontFallback: true,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-geist-mono",
   display: "swap",
+  weight: ["400"],
+  preload: false,
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = {
@@ -66,11 +72,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans`}
       >
-        <SmoothScrollProvider>
+        <ClientProviders>
           <Navbar />
           <main>{children}</main>
           <Footer />
-        </SmoothScrollProvider>
+        </ClientProviders>
       </body>
     </html>
   );

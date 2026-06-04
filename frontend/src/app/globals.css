@@ -44,6 +44,16 @@ body {
   font-feature-settings: "rlig" 1, "calt" 1;
 }
 
+/* Defer rendering of below-fold sections until near viewport */
+#about,
+#skills,
+#projects,
+#experience,
+#contact {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 520px;
+}
+
 ::selection {
   @apply bg-accent/30 text-foreground;
 }

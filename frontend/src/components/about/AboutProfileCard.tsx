@@ -31,9 +31,10 @@ export function AboutProfileCard() {
           <div className="absolute -inset-px rounded-xl bg-gradient-to-br from-accent via-glow to-accent/30 opacity-80" />
           <div className="relative m-[2px] h-[calc(100%-4px)] overflow-hidden rounded-[10px] bg-background">
             <Image
-              src="/pic.png"
+              src="/pic.webp"
               alt={`${siteConfig.name} profile`}
               fill
+              loading="lazy"
               className="object-cover transition-transform duration-700 hover:scale-105"
               sizes="(max-width: 768px) 280px, 320px"
             />

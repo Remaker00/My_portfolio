@@ -8,15 +8,25 @@ export function useMousePosition(enabled = true) {
   useEffect(() => {
     if (!enabled) return;
 
+    let frame = 0;
+    let nextX = 0.5;
+    let nextY = 0.5;
+
     const handleMove = (e: MouseEvent) => {
-      setPosition({
-        x: e.clientX / window.innerWidth,
-        y: e.clientY / window.innerHeight,
+      nextX = e.clientX / window.innerWidth;
+      nextY = e.clientY / window.innerHeight;
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        setPosition({ x: nextX, y: nextY });
+        frame = 0;
       });
     };
 
     window.addEventListener("mousemove", handleMove, { passive: true });
-    return () => window.removeEventListener("mousemove", handleMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      if (frame) cancelAnimationFrame(frame);
+    };
   }, [enabled]);
 
   return position;
