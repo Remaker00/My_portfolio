@@ -85,7 +85,7 @@ export function AboutBento() {
       </Reveal>
 
       {/* Clients strip */}
-      <Reveal delay={0.12} className="lg:col-span-12">
+      {/* <Reveal delay={0.12} className="lg:col-span-12">
         <GlassCard className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="font-mono text-xs uppercase tracking-widest text-muted">
@@ -106,7 +106,7 @@ export function AboutBento() {
             ))}
           </div>
         </GlassCard>
-      </Reveal>
+      </Reveal> */}
     </div>
   );
 }
