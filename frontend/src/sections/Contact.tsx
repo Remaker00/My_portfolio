@@ -5,23 +5,47 @@ import { SectionShell } from "@/components/layout/SectionShell";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { siteConfig } from "@/constants/site";
+import { sendContactMessage } from "@/lib/contact";
 import { cn } from "@/lib/utils";
-import { Send } from "lucide-react";
+import { Loader2, Send } from "lucide-react";
 import { FormEvent, useState } from "react";
 
-export function Contact() {
-  const [status, setStatus] = useState<"idle" | "sent">("idle");
+type FormStatus = "idle" | "loading" | "sent" | "gmail" | "error";
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+export function Contact() {
+  const [status, setStatus] = useState<FormStatus>("idle");
+  const [feedback, setFeedback] = useState("");
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setStatus("loading");
+    setFeedback("");
+
     const form = e.currentTarget;
     const data = new FormData(form);
-    const name = data.get("name") as string;
-    const message = data.get("message") as string;
-    const subject = encodeURIComponent(`Portfolio contact from ${name}`);
-    const body = encodeURIComponent(message);
-    window.location.href = `mailto:${siteConfig.email}?subject=${subject}&body=${body}`;
-    setStatus("sent");
+    const payload = {
+      name: data.get("name") as string,
+      email: data.get("email") as string,
+      message: data.get("message") as string,
+    };
+
+    const result = await sendContactMessage(payload);
+
+    if (result.ok && result.method === "web3forms") {
+      setStatus("sent");
+      setFeedback("Message sent — I'll get back to you on Gmail soon.");
+      form.reset();
+      return;
+    }
+
+    if (result.ok && result.method === "gmail") {
+      setStatus("gmail");
+      setFeedback("Gmail opened with your message pre-filled. Hit send there.");
+      return;
+    }
+
+    setStatus("error");
+    setFeedback(result.error);
   }
 
   return (
@@ -38,21 +62,22 @@ export function Contact() {
         <FadeIn delay={0.1}>
           <div className="space-y-6">
             <p className="text-lg text-muted leading-relaxed">
-              Prefer email?{" "}
+              Messages go straight to{" "}
               <a
                 href={`mailto:${siteConfig.email}`}
                 className="font-medium text-accent underline-offset-4 hover:underline"
               >
                 {siteConfig.email}
               </a>
+              . Fill out the form or open Gmail directly.
             </p>
             <Button
-              href={`mailto:${siteConfig.email}`}
-              variant="primary"
+              href={`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(siteConfig.email)}&su=${encodeURIComponent("Portfolio inquiry")}`}
+              variant="secondary"
               size="lg"
               external
             >
-              Send Email Directly
+              Open in Gmail
             </Button>
           </div>
         </FadeIn>
@@ -62,6 +87,14 @@ export function Contact() {
             onSubmit={handleSubmit}
             className="rounded-2xl border border-border bg-card/40 p-6 backdrop-blur-xl md:p-8"
           >
+            <input
+              type="checkbox"
+              name="botcheck"
+              className="hidden"
+              tabIndex={-1}
+              autoComplete="off"
+            />
+
             <div className="space-y-5">
               <div>
                 <label
@@ -76,6 +109,7 @@ export function Contact() {
                   type="text"
                   required
                   autoComplete="name"
+                  disabled={status === "loading"}
                   className={inputClass}
                   placeholder="Your name"
                 />
@@ -93,6 +127,7 @@ export function Contact() {
                   type="email"
                   required
                   autoComplete="email"
+                  disabled={status === "loading"}
                   className={inputClass}
                   placeholder="you@company.com"
                 />
@@ -109,19 +144,42 @@ export function Contact() {
                   name="message"
                   required
                   rows={4}
+                  disabled={status === "loading"}
                   className={cn(inputClass, "resize-y min-h-[120px]")}
                   placeholder="Tell me about the role or project..."
                 />
               </div>
             </div>
+
+            {feedback ? (
+              <p
+                role="status"
+                className={cn(
+                  "mt-5 text-sm",
+                  status === "error" ? "text-red-400" : "text-accent",
+                )}
+              >
+                {feedback}
+              </p>
+            ) : null}
+
             <Button
               type="submit"
               variant="primary"
               size="lg"
+              disabled={status === "loading"}
               className="mt-6 w-full sm:w-auto"
             >
-              <Send size={18} />
-              {status === "sent" ? "Opening mail client…" : "Send Message"}
+              {status === "loading" ? (
+                <Loader2 size={18} className="animate-spin" />
+              ) : (
+                <Send size={18} />
+              )}
+              {status === "loading"
+                ? "Sending…"
+                : status === "sent"
+                  ? "Sent"
+                  : "Send Message"}
             </Button>
           </form>
         </FadeIn>
@@ -131,4 +189,4 @@ export function Contact() {
 }
 
 const inputClass =
-  "w-full rounded-xl border border-border bg-background/50 px-4 py-3 text-foreground placeholder:text-muted/60 transition-colors focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20";
+  "w-full rounded-xl border border-border bg-background/50 px-4 py-3 text-foreground placeholder:text-muted/60 transition-colors focus:border-accent/50 focus:outline-none focus:ring-2 focus:ring-accent/20 disabled:cursor-not-allowed disabled:opacity-60";

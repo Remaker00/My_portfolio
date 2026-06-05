@@ -11,20 +11,21 @@ import {
 
 export const aboutCopy = {
   label: "About",
-  title: "Product-minded frontend engineer.",
-  subtitle: "Frontend systems built for scale. Shipped in production.",
+  title: "Frontend Engineer focused on building scalable web products.",
+  subtitle:
+    "3+ years of experience developing high-performance, user-centric applications with React, Next.js, and TypeScript.",
 } as const;
 
 export const aboutIntro = [
-  "I design and ship interfaces that feel fast, intentional, and premium.",
-  "Full-time frontend developer — client platforms, AI products, compliance SaaS.",
-  "MVIT · Sharpener · now building at production scale.",
+  "I build responsive, performant, and accessible web experiences that balance user needs with business goals.",
+  "Experienced in developing AI-powered platforms, SaaS products, and production-grade applications using modern frontend technologies.",
+  "Focused on clean architecture, reusable components, performance optimization, and delivering polished user experiences.",
 ] as const;
 
 export const aboutMetrics = [
-  { value: "10K+", label: "AI listings shipped", detail: "PoweredByAI" },
-  { value: "3", label: "Production client apps", detail: "Live platforms" },
-  { value: "8+", label: "Months on flagship build", detail: "Ongoing delivery" },
+  { value: "3+", label: "Years of experience", detail: "Frontend Development" },
+  { value: "8+", label: "Production applications", detail: "Delivered & maintained" },
+  { value: "10+", label: "Tools & Technologies", detail: "Scalable UI systems" },
 ] as const;
 
 export const aboutClients = [
@@ -34,46 +35,46 @@ export const aboutClients = [
 ] as const;
 
 export const aboutNow = [
-  "Building AI marketplace interfaces at scale",
-  "Hardening flows with Playwright E2E suites",
-  "Refining motion systems & interaction quality",
-  "Exploring AI-integrated product experiences",
+  "Building AI-powered web applications",
+  "Developing scalable React and Next.js solutions",
+  "Improving performance, SEO, and Core Web Vitals",
+  "Expanding automated testing with Playwright",
 ] as const;
 
 export const aboutFocus = [
   {
     title: "Frontend Architecture",
-    description: "Composable systems, clean boundaries, scalable UI.",
+    description: "Scalable applications built with React, Next.js, and TypeScript.",
     icon: Layers,
   },
   {
-    title: "Motion & Interaction",
-    description: "Cinematic transitions with performance discipline.",
+    title: "User Experience",
+    description: "Intuitive interfaces designed for usability and engagement.",
     icon: Sparkles,
   },
   {
     title: "Performance",
-    description: "Fast renders, optimized assets, smooth scroll.",
+    description: "Optimized rendering, Core Web Vitals, and fast-loading experiences.",
     icon: Gauge,
   },
   {
     title: "Design Systems",
-    description: "Tokens, patterns, and consistent product UI.",
+    description: "Reusable components and consistent UI patterns at scale.",
     icon: Palette,
   },
   {
-    title: "AI Product UI",
-    description: "Discovery, dashboards, and intelligent workflows.",
+    title: "AI & SaaS Products",
+    description: "Building modern interfaces for AI-powered and SaaS platforms.",
     icon: Cpu,
   },
   {
     title: "Quality Engineering",
-    description: "Playwright automation & accessible interfaces.",
+    description: "Automated testing, reliability, and production-ready code.",
     icon: TestTube2,
   },
 ] as const;
 
 export const aboutHighlights = [
-  { icon: Rocket, text: "Production-grade delivery" },
-  { icon: Accessibility, text: "Accessibility-first" },
+  { icon: Rocket, text: "Production-ready solutions" },
+  { icon: Accessibility, text: "Accessible & responsive UI" },
 ] as const;
