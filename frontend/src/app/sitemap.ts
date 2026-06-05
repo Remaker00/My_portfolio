@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
-import { siteConfig } from "@/constants/site";
+import { getSiteUrl } from "@/constants/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: siteConfig.url,
+      url: getSiteUrl(),
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
