@@ -1,33 +1,41 @@
 {
   "name": "nishant-portfolio",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "private": true,
   "scripts": {
+    "build-info": "node scripts/build-info.mjs",
+    "predev": "npm run build-info",
     "dev": "next dev",
+    "prebuild": "npm run build-info",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
+    "check": "npm run lint && npm run typecheck && npm run test:e2e"
   },
   "dependencies": {
     "clsx": "^2.1.1",
-    "lenis": "^1.3.23",
-    "lucide-react": "^0.468.0",
-    "motion": "^12.40.0",
-    "next": "^15.1.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwind-merge": "^2.6.0"
+    "lucide-react": "^1.52.0",
+    "motion": "^14.0.0",
+    "next": "^16.4.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
-    "@types/node": "^22.10.0",
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^9.17.0",
-    "eslint-config-next": "^15.1.0",
-    "postcss": "^8.4.49",
-    "sharp": "^0.34.5",
-    "tailwindcss": "^3.4.17",
-    "typescript": "^5.7.2"
+    "@playwright/test": "^1.64.0",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^10.12.0",
+    "eslint-config-next": "^16.4.0",
+    "postcss": "^8.5.29",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=20.9"
   }
 }

@@ -13,25 +13,13 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#18181b",
-          borderRadius: "8px",
-          border: "1px solid #3f3f46",
+          background: "#151514",
+          borderRadius: "6px",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "14px",
-            height: "14px",
-            borderRadius: "999px",
-            background: "#818cf8",
-            boxShadow: "0 0 10px rgba(129, 140, 248, 0.65)",
-          }}
-        />
+        <div style={{ width: 12, height: 12, borderRadius: 999, background: "#e8501c" }} />
       </div>
     ),
-    { ...size },
+    size,
   );
 }

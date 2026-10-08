@@ -1,7 +1,8 @@
-import { siteConfig } from "@/constants/site";
 import { ImageResponse } from "next/og";
+import { profile } from "@/content/profile";
+import { releases } from "@/content/releases";
 
-export const alt = siteConfig.ogImageAlt;
+export const alt = `${profile.name} — ${profile.role}. ${profile.headline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -15,94 +16,31 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "72px 80px",
-          background:
-            "linear-gradient(145deg, #09090b 0%, #18181b 45%, #0f0f14 100%)",
-          color: "#fafafa",
-          fontFamily: "system-ui, sans-serif",
+          padding: "64px 72px",
+          background: "#f3f1ec",
+          color: "#151514",
+          fontFamily: "Georgia, serif",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "12px",
-            fontSize: "22px",
-            color: "#818cf8",
-            letterSpacing: "0.08em",
-            textTransform: "uppercase",
-          }}
-        >
-          <div
-            style={{
-              width: "10px",
-              height: "10px",
-              borderRadius: "999px",
-              background: "#818cf8",
-              boxShadow: "0 0 24px #818cf8",
-            }}
-          />
-          Portfolio
+        <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "monospace", fontSize: 22, color: "#66645f" }}>
+          <span>{profile.handle}</span>
+          <span style={{ color: "#18794e" }}>● {profile.availability.toLowerCase()}</span>
         </div>
-
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "20px",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              fontSize: "72px",
-              fontWeight: 700,
-              lineHeight: 1.05,
-              letterSpacing: "-0.03em",
-              maxWidth: "900px",
-            }}
-          >
-            {siteConfig.name}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              fontSize: "34px",
-              color: "#a1a1aa",
-              lineHeight: 1.3,
-              maxWidth: "820px",
-            }}
-          >
-            {siteConfig.title} · {siteConfig.location}
-          </div>
-          <div
-            style={{
-              display: "flex",
-              marginTop: "8px",
-              fontSize: "26px",
-              color: "#d4d4d8",
-              lineHeight: 1.45,
-              maxWidth: "860px",
-            }}
-          >
-            {siteConfig.tagline}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ fontSize: 88, lineHeight: 1, letterSpacing: "-0.03em", display: "flex", flexWrap: "wrap" }}>
+            I ship frontends that hold up in&nbsp;<span style={{ color: "#e8501c", fontStyle: "italic" }}>production.</span>
           </div>
         </div>
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            fontSize: "22px",
-            color: "#71717a",
-          }}
-        >
-          <span>React · Next.js · TypeScript · Playwright</span>
-          <span>{siteConfig.email}</span>
+        <div style={{ display: "flex", gap: 32, fontFamily: "monospace", fontSize: 22, borderTop: "2px solid #d8d4cb", paddingTop: 24 }}>
+          <span>{profile.name}</span>
+          {releases.map((r) => (
+            <span key={r.id} style={{ color: "#66645f" }}>
+              {r.product}
+            </span>
+          ))}
         </div>
       </div>
     ),
-    { ...size },
+    size,
   );
 }
