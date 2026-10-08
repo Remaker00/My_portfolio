@@ -1,22 +1,21 @@
 # Nishant Sourav — Portfolio
 
-Personal portfolio site for **Nishant Sourav**, a frontend developer based in Bangalore, India. Built with Next.js 15, TypeScript, Tailwind CSS, and Motion — focused on performance, scroll-driven animations, and a polished dark UI.
+Personal portfolio site for **Nishant Sourav**, a frontend developer based in Bangalore, India. Built with Next.js 16, TypeScript, Tailwind CSS 4 and Motion, designed as a "ship log" that proves its own quality.
 
 **Live repo:** [github.com/Remaker00/My_portfolio](https://github.com/Remaker00/My_portfolio)
 
 ---
 
-## Features
+## Concept: Ship Log
 
-- **Hero** — Interactive showcase with terminal aesthetic, rotating roles, tech orbit, and command menu
-- **About** — Bento-style layout with profile card, focus areas, and glassmorphism panels
-- **Skills** — Grouped skill categories with visual hierarchy
-- **Projects** — Professional and learning projects with tags and descriptions
-- **Experience** — Scroll-animated timeline with progress bar and active connection nodes
-- **Contact** — Form powered by [Web3Forms](https://web3forms.com) (free) with Gmail compose fallback
-- **Smooth scrolling** — Lenis integration with reduced-motion support
-- **SEO** — Metadata, Open Graph, Twitter cards, `robots.txt`, and `sitemap.xml`
-- **Performance** — Dynamic imports for below-fold sections, AVIF/WebP images, content-visibility hints
+The portfolio is presented like a release dashboard rather than a template landing page:
+
+- **Status bar** — sticky header with section links and the CV.
+- **Releases** — three client projects as expandable release notes: what was built, how it was verified, stack and live link. Keyboard navigable with `j` / `k`.
+- **Audit this page** — 17 live Core Web Vitals, accessibility and SEO checks run in the visitor's browser against the page itself (`src/features/audit/checks.ts`).
+- **Career log** — `git log`-style timeline with measured impact.
+- **Toolchain** — skills as physics balls you can push, grab and throw (dependency-free engine in `src/features/skills/physics.ts`).
+- **Contact** — Web3Forms → Gmail, with a Gmail-compose fallback.
 
 ---
 
@@ -24,63 +23,52 @@ Personal portfolio site for **Nishant Sourav**, a frontend developer based in Ba
 
 | Category | Tools |
 |----------|-------|
-| Framework | [Next.js 15](https://nextjs.org/) (App Router) |
-| Language | TypeScript |
-| Styling | Tailwind CSS |
-| Animation | [Motion](https://motion.dev/) |
-| Scroll | [Lenis](https://lenis.darkroom.engineering/) |
-| Icons | Lucide React |
-| Contact | Web3Forms → Gmail |
+| Framework | Next.js 16 (App Router, Turbopack), React 19 |
+| Language | TypeScript 6 |
+| Styling | Tailwind CSS 4 (CSS-first config in `src/app/globals.css`) |
+| Animation | Motion 14 (respects `prefers-reduced-motion`) |
+| Icons | Lucide React (brand icons inlined) |
+| Testing | Playwright (desktop + mobile) |
+| Linting | ESLint 10 flat config (`eslint.config.mjs`) |
 
 ---
 
 ## Project Structure
 
 ```
-My_portfolio/
-├── frontend/                 # Next.js application
-│   ├── public/               # Static assets (images, resume PDF, favicon)
-│   ├── src/
-│   │   ├── app/              # App Router (layout, page, globals, SEO routes)
-│   │   ├── sections/         # Page sections (Hero, About, Skills, …)
-│   │   ├── components/       # Reusable UI and feature components
-│   │   ├── constants/        # Site copy, projects, experience, skills data
-│   │   ├── hooks/            # Custom React hooks
-│   │   ├── lib/              # Utilities (contact form, cn helper)
-│   │   ├── animations/       # Motion variants and transitions
-│   │   └── types/            # Shared TypeScript types
-│   ├── .env.example          # Environment variable template
-│   └── package.json
-└── README.md
+frontend/
+├── e2e/                  # Playwright specs
+├── scripts/build-info.mjs# Writes src/generated/build-info.json (gitignored)
+├── public/               # Photo, CV, favicon
+└── src/
+    ├── app/              # Layout, page, SEO routes, generated icons & OG image
+    ├── content/          # All copy: profile, releases, career, stack
+    ├── features/         # One folder per page section (UI + its logic)
+    ├── components/       # Shared primitives (Section, icons, MotionProvider)
+    └── lib/              # cn(), site URL, build info
 ```
 
 ---
 
 ## Getting Started
 
-### Prerequisites
-
-- **Node.js** 18.18 or later
-- **npm** (or yarn / pnpm)
-
-### Install & run
+Requires Node.js 20.9+.
 
 ```bash
 cd frontend
 npm install
+npx playwright install chromium   # first time only, for e2e tests
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-### Scripts
-
 | Command | Description |
 |---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Production build |
-| `npm run start` | Serve production build |
-| `npm run lint` | Run ESLint |
+| `npm run dev` | Dev server on http://localhost:3000 |
+| `npm run build` / `npm run start` | Production build / serve |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | `tsc --noEmit` |
+| `npm run test:e2e` | Playwright suite (builds and serves on :3100) |
+| `npm run check` | All of the above |
 
 ---
 
@@ -104,20 +92,16 @@ See `frontend/.env.example` for the template.
 
 ## Customization
 
-Most content is driven from `frontend/src/constants/` — edit these files to update the site without touching components:
+All content lives in `frontend/src/content/` — edit these files to update the site without touching components:
 
 | File | Contents |
 |------|----------|
-| `site.ts` | Name, title, email, location, resume URL |
-| `hero.ts` | Hero copy, metrics, tech stack, command menu |
-| `about.ts` | About section content and bento cards |
-| `skills.ts` | Skill groups |
-| `projects.ts` | Project listings |
-| `experience.ts` | Work and education timeline |
-| `navigation.ts` | Navbar links |
-| `social.ts` | GitHub, LinkedIn, email links |
+| `profile.ts` | Name, headline, summary, email, links, CV path |
+| `releases.ts` | Project case studies |
+| `career.ts` | Work and education log |
+| `stack.ts` | Toolchain groups |
 
-Place your resume at `frontend/public/Nishant_CV.pdf` (or update `resumeUrl` in `site.ts`).
+Place your resume PDF in `frontend/public/` and set `resumeUrl` in `src/content/profile.ts`.
 
 ---
 

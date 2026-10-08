@@ -54,3 +54,8 @@ Thumbs.db
 # Misc
 *.pem
 .turbo
+
+# generated at build time
+src/generated/
+playwright-report/
+test-results/

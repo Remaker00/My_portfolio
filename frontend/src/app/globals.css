@@ -1,59 +1,72 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --background: 9 9 11;
-  --foreground: 250 250 250;
-  --muted: 161 161 170;
-  --accent: 129 140 248;
-  --glow: 167 139 250;
-  --card: 24 24 27;
-  --border: 39 39 42;
+@custom-variant dark (@media (prefers-color-scheme: dark));
+
+@theme {
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-instrument-serif), ui-serif, Georgia, serif;
+
+  --color-paper: #f3f1ec;
+  --color-sheet: #fbfaf7;
+  --color-ink: #151514;
+  --color-dim: #66645f;
+  --color-rule: #d8d4cb;
+  --color-signal: #e8501c;
+  --color-pass: #18794e;
+  --color-warn: #b25b00;
+  --color-fail: #c42b1c;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html {
-  scroll-behavior: auto;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-paper: #0f0f0e;
+    --color-sheet: #171716;
+    --color-ink: #ecebe6;
+    --color-dim: #9a988f;
+    --color-rule: #2c2b28;
+    --color-signal: #ff6a33;
+    --color-pass: #3dd68c;
+    --color-warn: #f1a10d;
+    --color-fail: #ff6369;
+  }
 }
 
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-@media (prefers-reduced-motion: reduce) {
+@layer base {
   html {
-    scroll-behavior: auto;
+    color-scheme: light dark;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
-  .animate-fade-in-up,
-  .animate-gradient-shift,
-  .animate-bounce {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
-}
 
-body {
-  @apply bg-background text-foreground antialiased;
-  font-feature-settings: "rlig" 1, "calt" 1;
-}
+  ::selection {
+    background: var(--color-signal);
+    color: var(--color-sheet);
+  }
 
-/* Defer rendering of below-fold sections until near viewport */
-#about,
-#skills,
-#projects,
-#experience,
-#contact {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 520px;
-}
+  :focus-visible {
+    outline: 2px solid var(--color-signal);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
 
-::selection {
-  @apply bg-accent/30 text-foreground;
+  [id] {
+    scroll-margin-top: 4.5rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
 }
